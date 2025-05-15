@@ -79,7 +79,7 @@ Acceder en `http://localhost:5169` o el puerto que se indique.
 
 | Dashboard principal | Registro de gasto | Gráfico presupuestal |
 |---------------------|-------------------|-----------------------|
-| ![dashboard](![image](https://github.com/user-attachments/assets/712b2cbd-210e-4712-bbf6-38ed089cca9e)| ![registro](![image](https://github.com/user-attachments/assets/f4b30b46-adcd-42a0-8336-7f772d169ab1)| ![grafico](![image](https://github.com/user-attachments/assets/87f0fd09-a17b-41ce-aba9-10e87cb28293) |
+| ![image](https://github.com/user-attachments/assets/712b2cbd-210e-4712-bbf6-38ed089cca9e)| ![image](https://github.com/user-attachments/assets/f4b30b46-adcd-42a0-8336-7f772d169ab1)| (![image](https://github.com/user-attachments/assets/87f0fd09-a17b-41ce-aba9-10e87cb28293)|
 
 ---
 
