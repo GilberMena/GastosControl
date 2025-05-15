@@ -1,0 +1,84 @@
+﻿@model GastosControl.Models.ExpenseFormViewModel
+@{
+    ViewData["Title"] = "Registrar Gasto";
+}
+
+<h2>Registrar Gasto</h2>
+
+@if (!ViewData.ModelState.IsValid && ViewData.ModelState.ErrorCount > 0)
+{
+    <div asp-validation-summary="All" class="alert alert-danger"></div>
+}
+
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Date"></label>
+        <input asp-for="Date" type="date" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MonetaryFundId"></label>
+        <select asp-for="MonetaryFundId" class="form-control" asp-items="ViewBag.MonetaryFundId"></select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CommerceName"></label>
+        <input asp-for="CommerceName" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DocumentType"></label>
+        <select asp-for="DocumentType" class="form-control">
+            <option>Factura</option>
+            <option>Comprobante</option>
+            <option>Otro</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Observation"></label>
+        <textarea asp-for="Observation" class="form-control"></textarea>
+    </div>
+
+    <hr />
+    <h4>Detalles del Gasto</h4>
+
+    <div id="detalles-container">
+        @for (int i = 0; i < Model.Details.Count; i++)
+        {
+            <div class="detalle-item mb-3 border p-3 rounded">
+                <div class="form-group">
+                    <label>Tipo de Gasto</label>
+                    <select asp-for="Details[@i].ExpenseTypeId" class="form-control" asp-items="ViewBag.ExpenseTypes"></select>
+                </div>
+                <div class="form-group">
+                    <label>Monto</label>
+                    <input type="number" asp-for="Details[@i].Amount" class="form-control" />
+                </div>
+                <button type="button" class="btn btn-danger btn-sm mt-2" onclick="removeDetalle(this)">Eliminar</button>
+            </div>
+        }
+    </div>
+
+    <button type="button" class="btn btn-secondary mt-3" onclick="addDetalle()">+ Agregar Detalle</button>
+
+
+    <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+</form>
+
+<script>
+    let detalleIndex = @Model.Details.Count;
+    let selectTemplate = "";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const firstSelect = document.querySelector('.detalle-item select');
+        if (firstSelect) {
+            selectTemplate = firstSelect.innerHTML;
+        }
+    });
+
+</script>
+@section Scripts {
+    <script src="~/js/Expense.js" asp-append-version="true"></script>
+}

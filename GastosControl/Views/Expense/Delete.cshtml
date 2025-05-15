@@ -1,0 +1,20 @@
+﻿@model GastosControl.Domain.Entities.ExpenseHeader
+@{
+    ViewData["Title"] = "Eliminar Gasto";
+}
+
+<h2>¿Desea eliminar este gasto?</h2>
+
+<dl class="row">
+    <dt class="col-sm-2">Fecha</dt>
+    <dd class="col-sm-10">@Model.Date.ToShortDateString()</dd>
+
+    <dt class="col-sm-2">Comercio</dt>
+    <dd class="col-sm-10">@Model.CommerceName</dd>
+</dl>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

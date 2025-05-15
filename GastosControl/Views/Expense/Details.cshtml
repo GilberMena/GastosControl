@@ -1,0 +1,48 @@
+﻿@model GastosControl.Domain.Entities.ExpenseHeader
+@{
+    ViewData["Title"] = "Detalle del Gasto";
+}
+
+<h2>Detalle del Gasto</h2>
+
+<dl class="row">
+    <dt class="col-sm-2">Fecha</dt>
+    <dd class="col-sm-10">@Model.Date.ToShortDateString()</dd>
+
+    <dt class="col-sm-2">Comercio</dt>
+    <dd class="col-sm-10">@Model.CommerceName</dd>
+
+    <dt class="col-sm-2">Tipo Documento</dt>
+    <dd class="col-sm-10">@Model.DocumentType</dd>
+
+    <dt class="col-sm-2">Observación</dt>
+    <dd class="col-sm-10">@Model.Observation</dd>
+</dl>
+
+<h4>Detalles</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tipo de Gasto</th>
+            <th>Monto</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var d in Model.Details)
+        {
+            <tr>
+                <td>@d.ExpenseTypeId</td>
+                <td>@d.Amount.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Total</th>
+            <th>@Model.Details.Sum(d => d.Amount).ToString("C")</th>
+        </tr>
+    </tfoot>
+</table>
+<div>
+    <a asp-action="Index">Regresar</a>
+</div>

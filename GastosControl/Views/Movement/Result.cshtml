@@ -1,0 +1,50 @@
+﻿@model List<GastosControl.Application.DTOs.MovementDto>
+
+@{
+    ViewData["Title"] = "Movimientos";
+}
+
+<h2 class="mb-4">Movimientos desde @ViewBag.From hasta @ViewBag.To</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning">No se encontraron movimientos en el rango seleccionado.</div>
+}
+else
+{
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Fecha</th>
+                <th>Usuario</th>
+                <th>Tipo</th>
+                <th>Fondo</th>
+                <th>Tipo de Cuenta</th>
+                <th>Descripción</th>
+                <th class="text-end">Monto</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                var rowStyle = item.Type == "Depósito"
+                ? "background-color: #f3fdf8;"
+                : "background-color: #fdfdfd;";
+
+                var icon = item.Type == "Depósito" ? "💰" : "🧾";
+
+                <tr style="@rowStyle">
+                    <td>@item.Date.ToString("dd/MM/yyyy")</td>
+                    <td>@item.User</td>
+                    <td>@icon @item.Type</td>
+                    <td>@item.Fund</td>
+                    <td>@item.FundDescription</td>
+                    <td>@item.Description</td>
+                    <td class="text-end">@item.Amount.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+
+
+    </table>
+}

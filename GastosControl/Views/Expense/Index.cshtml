@@ -1,0 +1,39 @@
+﻿@model List<GastosControl.Domain.Entities.ExpenseHeader>
+@{
+    ViewData["Title"] = "Gastos Registrados";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Registrar Nuevo Gasto</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Fondo monetario</th>
+            <th>Comercio</th>
+            <th>Tipo Documento</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Date.ToShortDateString()</td>
+                <td>@item.MonetaryFund.Name - @item.MonetaryFund.Description</td>
+                <td>@item.CommerceName</td>
+                <td>@item.DocumentType</td>
+                <td>@item.Details.Sum(d => d.Amount).ToString("C")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Ver</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,90 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+    var chartData = ViewBag.GraphData as string;
+}
+
+<h2 class="mb-4">Resumen de Presupuesto vs Ejecución - @DateTime.Now</h2>
+
+<!-- Tarjetas resumen -->
+<div class="row text-center mb-4">
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h6 class="card-title">💰 Total depositado</h6>
+                <p class="card-text fs-4">@ViewBag.TotalDeposits.ToString("C")</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h6 class="card-title">🧾 Total gastado</h6>
+                <p class="card-text fs-4">@ViewBag.TotalExpenses.ToString("C")</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h6 class="card-title">⚖️ Saldo disponible</h6>
+                <p class="card-text fs-4">@((ViewBag.TotalDeposits - ViewBag.TotalExpenses).ToString("C"))</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Top 3 tipos de gasto -->
+<div class="row mb-4">
+    <div class="col-md-6">
+        <h5>📊 Top 3 tipos de gasto del mes</h5>
+        <ul class="list-group">
+            @foreach (var top in ViewBag.Top3Gastos as List<GastosControl.Domain.DTO.TopGastoDto>)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    @top.Name
+                    <span class="badge bg-danger rounded-pill">@top.Amount.ToString("C")</span>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+<canvas id="presupuestoChart" height="100"></canvas>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const chartData = @Html.Raw(chartData);
+        const labels = chartData.map(item => item.expenseTypeName);
+        const presupuesto = chartData.map(item => item.budget);
+        const ejecutado = chartData.map(item => item.executed);
+
+        const ctx = document.getElementById('presupuestoChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Presupuesto',
+                        data: presupuesto,
+                        backgroundColor: 'rgba(54, 162, 235, 0.5)'
+                    },
+                    {
+                        label: 'Ejecutado',
+                        data: ejecutado,
+                        backgroundColor: 'rgba(255, 99, 132, 0.5)'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+}

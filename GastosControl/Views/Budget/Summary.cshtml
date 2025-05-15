@@ -1,0 +1,31 @@
+﻿@model List<GastosControl.Application.DTOs.BudgetMovementDto>
+
+@{
+    ViewData["Title"] = "Resumen Presupuestal";
+    var mes = ViewBag.Month;
+    var año = ViewBag.Year;
+}
+
+<h2>Resumen presupuestal - @mes/@año</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Tipo de Gasto</th>
+            <th>Presupuesto</th>
+            <th>Gastado</th>
+            <th>Disponible</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ExpenseTypeName</td>
+                <td>@item.Budget.ToString("C")</td>
+                <td>@item.Executed.ToString("C")</td>
+                <td>@item.Available.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+</table>

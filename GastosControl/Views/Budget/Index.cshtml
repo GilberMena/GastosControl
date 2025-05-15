@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Consultar Presupuesto Mensual";
+}
+
+<h2>Consultar Presupuesto</h2>
+
+<form asp-action="Summary" method="post">
+    <div class="form-group">
+        <label for="BudgetMonth">Mes y Año</label>
+        <input type="month" id="BudgetMonth" name="BudgetMonth" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Consultar</button>
+</form>

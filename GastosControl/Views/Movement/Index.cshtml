@@ -1,0 +1,13 @@
+﻿<h2>Consulta de Movimientos</h2>
+
+<form asp-action="Result" method="post">
+    <div class="form-group">
+        <label>Desde</label>
+        <input type="date" name="from" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label>Hasta</label>
+        <input type="date" name="to" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Consultar</button>
+</form>
