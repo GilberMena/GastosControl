@@ -8,16 +8,20 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
 # Copiar csprojs y restaurar paquetes
-COPY GastosControl.sln ./
+COPY GastosControl/GastosControl.sln ./
 COPY GastosControl.Application/*.csproj ./GastosControl.Application/
 COPY GastosControl.Domain/*.csproj ./GastosControl.Domain/
 COPY GastosControl.Infrastructure/*.csproj ./GastosControl.Infrastructure/
-COPY ./*.csproj ./GastosControl/
+COPY GastosControl/*.csproj ./GastosControl/
 
 RUN dotnet restore ./GastosControl/GastosControl.csproj
 
 # Copiar todo y compilar
-COPY . ./
+COPY GastosControl.Application/ ./GastosControl.Application/
+COPY GastosControl.Domain/ ./GastosControl.Domain/
+COPY GastosControl.Infrastructure/ ./GastosControl.Infrastructure/
+COPY GastosControl/ ./GastosControl/
+
 WORKDIR /app/GastosControl
 RUN dotnet publish -c Release -o /out
 
